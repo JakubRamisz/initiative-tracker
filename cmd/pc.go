@@ -2,7 +2,7 @@ package cmd
 
 import (
 	"fmt"
-	"itr/logic"
+	"itr/utils"
 	"os"
 	"strings"
 
@@ -18,13 +18,13 @@ var pcCmd = &cobra.Command{
 	Short: "List added player characters",
 	Run: func(cmd *cobra.Command, args []string) {
 		configFlag, _ := cmd.Flags().GetString("config")
-		config, err := logic.ReadConfig(configFlag)
+		conf, err := utils.LoadFromFile(configFlag)
 		if err != nil {
 			fmt.Print(err)
 			os.Exit(1)
 		}
 
-		pcString := strings.Join(config.PlayerCharacters, "\n")
+		pcString := strings.Join(conf.PlayerCharacters, "\n")
 		fmt.Println(pcString)
 	},
 }

@@ -1,8 +1,7 @@
 package cmd
 
 import (
-	"itr/logic"
-	"itr/model"
+	"itr/utils"
 	"os"
 	"slices"
 	"testing"
@@ -12,11 +11,11 @@ func TestRemovePC(t *testing.T) {
 	const path = "../test/test_remove_pcs"
 	const pc = "Illya"
 
-	conf := model.Config{
+	conf := utils.Config{
 		PlayerCharacters: []string{pc},
 	}
 
-	err := logic.WriteConfig(conf, path)
+	err := conf.SaveToFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -26,7 +25,7 @@ func TestRemovePC(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	savedConf, err := logic.ReadConfig(path)
+	savedConf, err := utils.LoadFromFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}

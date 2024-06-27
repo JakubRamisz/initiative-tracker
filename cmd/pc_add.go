@@ -3,7 +3,7 @@ package cmd
 import (
 	"errors"
 	"fmt"
-	"itr/logic"
+	"itr/utils"
 	"os"
 	"slices"
 
@@ -34,20 +34,20 @@ var pcAddCmd = &cobra.Command{
 }
 
 func addPCs(pcs []string, configPath string) error {
-	config, err := logic.ReadConfig(configPath)
+	conf, err := utils.LoadFromFile(configPath)
 	if err != nil {
 		return err
 	}
 
 	for _, pc := range pcs {
 		pc := pc
-		if slices.Contains(config.PlayerCharacters, pc) {
+		if slices.Contains(conf.PlayerCharacters, pc) {
 			continue
 		}
 
-		config.PlayerCharacters = append(config.PlayerCharacters, pc)
+		conf.PlayerCharacters = append(conf.PlayerCharacters, pc)
 	}
 
-	err = logic.WriteConfig(config, configPath)
+	err = conf.SaveToFile(configPath)
 	return err
 }

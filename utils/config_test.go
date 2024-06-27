@@ -1,14 +1,13 @@
-package logic
+package utils
 
 import (
-	"itr/model"
 	"os"
 	"slices"
 	"testing"
 )
 
 func TestReadConfig(t *testing.T) {
-	config, err := ReadConfig("../test/test_conf.json")
+	config, err := LoadFromFile("../test/test_conf.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -20,11 +19,11 @@ func TestWriteConfig(t *testing.T) {
 
 	os.Remove(path)
 
-	config := model.Config{
+	config := Config{
 		PlayerCharacters: []string{"Jaturn", "Kier"},
 	}
 
-	err := WriteConfig(config, path)
+	err := config.SaveToFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -38,7 +37,7 @@ func TestWriteConfig(t *testing.T) {
 		t.Fatal("file does not exist")
 	}
 
-	savedConf, err := ReadConfig(path)
+	savedConf, err := LoadFromFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}

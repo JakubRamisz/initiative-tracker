@@ -1,7 +1,11 @@
 package model
 
-type InitiativeObject interface {
+type BoardObject interface {
+	GetInfo() string
 	GetName() string
 	GetInitiative() int
-	CompareInitiative(InitiativeObject) int
+	GetPriority() int
+	CompareInitiative(BoardObject) int
+	SetInitiative(int)
+	SetPriority(int)
 }

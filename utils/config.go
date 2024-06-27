@@ -1,13 +1,16 @@
-package logic
+package utils
 
 import (
 	"encoding/json"
-	"itr/model"
 	"os"
 )
 
-func ReadConfig(path string) (model.Config, error) {
-	config := model.Config{}
+type Config struct {
+	PlayerCharacters []string
+}
+
+func LoadFromFile(path string) (Config, error) {
+	config := Config{}
 
 	fileExists, err := checkFileExists(path)
 	if err != nil {
@@ -29,8 +32,8 @@ func ReadConfig(path string) (model.Config, error) {
 	return config, nil
 }
 
-func WriteConfig(config model.Config, path string) error {
-	content, err := json.MarshalIndent(config, "", "\t")
+func (c *Config) SaveToFile(path string) error {
+	content, err := json.MarshalIndent(c, "", "\t")
 	if err != nil {
 		return err
 	}

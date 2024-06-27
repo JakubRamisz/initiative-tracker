@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"itr/logic"
+	"itr/utils"
 	"os"
 
 	"github.com/mitchellh/go-homedir"
@@ -12,7 +14,13 @@ var rootCmd = &cobra.Command{
 	Use:   "itr",
 	Short: "Simple initiative tracker for your tabletop RPGs",
 	Run: func(cmd *cobra.Command, args []string) {
-		// TODO:implementacja trackera
+		configFlag, _ := cmd.Flags().GetString("config")
+		conf, err := utils.LoadFromFile(configFlag)
+		if err != nil {
+			fmt.Print(err)
+			return
+		}
+		logic.StartCombat(conf)
 	},
 }
 
