@@ -1,13 +1,14 @@
-package utils
+package test
 
 import (
+	"itr/logic"
 	"os"
 	"slices"
 	"testing"
 )
 
 func TestReadConfig(t *testing.T) {
-	config, err := LoadFromFile("../test/test_conf.json")
+	config, err := logic.LoadFromFile("test_conf.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -15,11 +16,11 @@ func TestReadConfig(t *testing.T) {
 }
 
 func TestWriteConfig(t *testing.T) {
-	const path = "../test/test_write_conf"
+	const path = "test_write_conf"
 
 	os.Remove(path)
 
-	config := Config{
+	config := logic.Config{
 		PlayerCharacters: []string{"Jaturn", "Kier"},
 	}
 
@@ -29,7 +30,7 @@ func TestWriteConfig(t *testing.T) {
 	}
 	defer os.Remove(path)
 
-	exists, err := checkFileExists(path)
+	exists, err := logic.CheckFileExists(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -37,7 +38,7 @@ func TestWriteConfig(t *testing.T) {
 		t.Fatal("file does not exist")
 	}
 
-	savedConf, err := LoadFromFile(path)
+	savedConf, err := logic.LoadFromFile(path)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,7 +52,7 @@ func TestWriteConfig(t *testing.T) {
 }
 
 func TestCheckFileExists(t *testing.T) {
-	exists, err := checkFileExists("../test/test_conf.json")
+	exists, err := logic.CheckFileExists("test_conf.json")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -59,7 +60,7 @@ func TestCheckFileExists(t *testing.T) {
 		t.Fatalf("expected: %t got: %t", true, exists)
 	}
 
-	exists, err = checkFileExists("manbearpig")
+	exists, err = logic.CheckFileExists("manbearpig")
 	if err != nil {
 		t.Fatal(err)
 	}

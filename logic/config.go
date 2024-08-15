@@ -1,4 +1,4 @@
-package utils
+package logic
 
 import (
 	"encoding/json"
@@ -12,7 +12,7 @@ type Config struct {
 func LoadFromFile(path string) (Config, error) {
 	config := Config{}
 
-	fileExists, err := checkFileExists(path)
+	fileExists, err := CheckFileExists(path)
 	if err != nil {
 		return config, err
 	}
@@ -52,7 +52,7 @@ func (c *Config) SaveToFile(path string) error {
 	return nil
 }
 
-func checkFileExists(path string) (bool, error) {
+func CheckFileExists(path string) (bool, error) {
 	_, err := os.Stat(path)
 
 	isNotExists := os.IsNotExist(err)

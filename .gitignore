@@ -22,3 +22,7 @@ go.work
 
 # MACOS
 .DS_Store
+
+# IDE
+.idea
+.vscode

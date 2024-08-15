@@ -1,4 +1,6 @@
-package model
+package models
+
+import "fmt"
 
 type Event struct {
 	Name       string
@@ -6,7 +8,7 @@ type Event struct {
 	Priority   int
 }
 
-func (e Event) CompareInitiative(other BoardObject) int {
+func (e *Event) CompareInitiative(other BoardObject) int {
 	diff := e.Initiative - other.GetInitiative()
 	if diff > 0 {
 		return 1
@@ -21,20 +23,21 @@ func (e Event) CompareInitiative(other BoardObject) int {
 	return -1
 
 }
-func (e Event) GetPriority() int {
+
+func (e *Event) GetPriority() int {
 	return e.Priority
 }
 
-func (e Event) GetName() string {
+func (e *Event) GetName() string {
 	return e.Name
 }
 
-func (e Event) GetInitiative() int {
+func (e *Event) GetInitiative() int {
 	return e.Initiative
 }
 
-func (e Event) GetInfo() string {
-	return e.Name
+func (e *Event) GetInfo() string {
+	return fmt.Sprintf("%2d %-20s", e.Initiative, e.Name)
 }
 
 func (e *Event) SetInitiative(initiative int) {

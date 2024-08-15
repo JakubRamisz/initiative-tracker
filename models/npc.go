@@ -1,4 +1,4 @@
-package model
+package models
 
 import "fmt"
 
@@ -26,6 +26,6 @@ func (npc *NPC) RecieveDMG(value int) {
 	}
 }
 
-func (npc NPC) GetInfo() string {
-	return fmt.Sprintf("%s\t[%d/%d]", npc.Name, npc.CurrentHP, npc.MaxHP)
+func (npc *NPC) GetInfo() string {
+	return fmt.Sprintf("%2d %-20s [%d/%d]", npc.Initiative, npc.Name, npc.CurrentHP, npc.MaxHP)
 }

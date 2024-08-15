@@ -1,27 +1,28 @@
-package model
+package logic
 
 import (
 	"fmt"
+	"itr/models"
 	"testing"
 )
 
 func TestOrderInitiative(t *testing.T) {
-	npcs := []NPC{
+	npcs := []models.NPC{
 		{
-			Creature: Creature{
+			Creature: models.Creature{
 				Name:       "npc17",
 				Initiative: 17,
 			},
 		},
 		{
-			Creature: Creature{
+			Creature: models.Creature{
 				Name:       "npc20",
 				Initiative: 20,
 			},
 		},
 	}
 	pcs :=
-		[]Creature{
+		[]models.Creature{
 			{
 				Name:       "char20",
 				Initiative: 20,
@@ -42,7 +43,7 @@ func TestOrderInitiative(t *testing.T) {
 			},
 		}
 	events :=
-		[]Event{
+		[]models.Event{
 			{
 				Name:       "ev20",
 				Initiative: 20,
@@ -52,28 +53,28 @@ func TestOrderInitiative(t *testing.T) {
 	b := Board{}
 	for _, pc := range pcs {
 		pc := pc
-		b.AddPC(&pc)
+		b.add(&pc)
 	}
 	for _, npc := range npcs {
 		npc := npc
-		b.AddNPC(&npc)
+		b.add(&npc)
 	}
 	for _, event := range events {
 		event := event
-		b.AddEvent(&event)
+		b.add(&event)
 	}
-	objects := b.GetObjects()
-	for i, o := range objects {
+	for i, o := range b.objects {
 		fmt.Printf("%d %s \n", o.GetInitiative(), o.GetName())
-		if i+1 == len(objects) {
+		if i+1 == len(b.objects) {
 			return
 		}
 
-		if objects[i].GetInitiative() <
-			objects[i+1].GetInitiative() {
+		if b.objects[i].GetInitiative() <
+			b.objects[i+1].GetInitiative() {
 			t.Fatalf("initiative ordered incorrectly")
 		}
-		if (objects[i].GetInitiative() == objects[i+1].GetInitiative()) && (objects[i].GetPriority() < objects[i+1].GetPriority()) {
+		if (b.objects[i].GetInitiative() == b.objects[i+1].GetInitiative()) &&
+			(b.objects[i].GetPriority() < b.objects[i+1].GetPriority()) {
 			t.Fatalf("priority ordered incorrectly")
 		}
 	}
