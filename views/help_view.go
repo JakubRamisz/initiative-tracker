@@ -8,7 +8,7 @@ import (
 
 const (
 	H       = "help"
-	hHeight = 9
+	hHeight = 10
 )
 
 func CreateHelpView(g *gocui.Gui) (*gocui.View, error) {
@@ -27,6 +27,7 @@ func CreateHelpView(g *gocui.Gui) (*gocui.View, error) {
 		"n <name> <hp> - add an npc",
 		"e <name> <initiative> - add an event",
 		"r - remove object",
+		"c - clone object",
 		"i <initiative> - set initiative",
 		"s - next initiative count",
 		"d <amount> - deal damage",

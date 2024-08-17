@@ -99,6 +99,16 @@ func handleCommand(cmd []string) (string, error) {
 		}
 		return fmt.Sprintf("Removed: %s", obj.GetName()), nil
 
+	case "c":
+		obj := logic.BoardState.GetSelectedObject()
+		if obj == nil {
+			return "", errors.New("no object selected")
+		}
+		if err := logic.BoardState.CloneObject(obj); err != nil {
+			return "", err
+		}
+		return fmt.Sprintf("Cloned %s", obj.GetName()), nil
+
 	case "i":
 		if len(cmd) < 2 {
 			err := errors.New("provide an initiative value")

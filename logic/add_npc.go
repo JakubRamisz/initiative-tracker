@@ -16,11 +16,9 @@ func (b *Board) AddNPC(name string, hp int) error {
 		Creature: models.Creature{
 			Name: name,
 		},
-		MaxHP:     hp,
-		CurrentHP: hp,
-	}
-	if exists > 0 {
-		npc.CreatureNumber = exists
+		MaxHP:          hp,
+		CurrentHP:      hp,
+		CreatureNumber: exists,
 	}
 	if err := b.add(&npc); err != nil {
 		return err
