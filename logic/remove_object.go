@@ -3,18 +3,20 @@ package logic
 import (
 	"errors"
 	"itr/models"
+	"slices"
 )
 
 func (b *Board) RemoveObject(obj models.BoardObject) error {
-	found := false
+	if obj == nil {
+		return errors.New("object is nil")
+	}
+	if !slices.Contains(b.objects, obj) {
+		return errors.New("object not found")
+	}
 	for i, o := range b.objects {
 		if o == obj {
 			b.objects = append(b.objects[:i], b.objects[i+1:]...)
-			found = true
 		}
-	}
-	if !found {
-		return errors.New("obj not found")
 	}
 
 	if pc, ok := obj.(*models.Creature); ok {

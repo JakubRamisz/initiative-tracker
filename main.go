@@ -63,7 +63,11 @@ func main() {
 		log.Println("Failed to load config:", err)
 		return
 	}
-	logic.BoardState = logic.NewBoard(conf.PlayerCharacters)
+	logic.BoardState, err = logic.NewBoard(conf.PlayerCharacters)
+	if err != nil {
+		log.Println("Failed to create a new board:", err)
+		return
+	}
 	if len(logic.BoardState.PCs()) > 0 {
 		if err := views.RedrawBoard(g, boardView); err != nil {
 			log.Println("Failed to redraw board:", err)

@@ -53,15 +53,21 @@ func TestOrderInitiative(t *testing.T) {
 	b := Board{}
 	for _, pc := range pcs {
 		pc := pc
-		b.add(&pc)
+		if err := b.add(&pc); err != nil {
+			t.Fatalf("failed to add pc")
+		}
 	}
 	for _, npc := range npcs {
 		npc := npc
-		b.add(&npc)
+		if err := b.add(&npc); err != nil {
+			t.Fatalf("failed to add npc")
+		}
 	}
 	for _, event := range events {
 		event := event
-		b.add(&event)
+		if err := b.add(&event); err != nil {
+			t.Fatalf("failed to add event")
+		}
 	}
 	for i, o := range b.objects {
 		fmt.Printf("%d %s \n", o.GetInitiative(), o.GetName())

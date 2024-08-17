@@ -23,7 +23,9 @@ func (b *Board) AddNPC(name string, hp int) error {
 		MaxHP:     hp,
 		CurrentHP: hp,
 	}
-	b.add(&npc)
+	if err := b.add(&npc); err != nil {
+		return err
+	}
 
 	return nil
 }

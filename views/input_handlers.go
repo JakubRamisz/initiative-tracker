@@ -52,11 +52,9 @@ func handleCommand(cmd []string) (string, error) {
 		}
 
 		name := strings.Join(cmd[1:], " ")
-
 		if err := logic.BoardState.AddPC(name); err != nil {
 			return "", err
 		}
-
 		return fmt.Sprintf("Added PC: %s", name), nil
 
 	case "n":
@@ -70,11 +68,9 @@ func handleCommand(cmd []string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-
 		if err := logic.BoardState.AddNPC(name, hp); err != nil {
 			return "", err
 		}
-
 		return fmt.Sprintf("Added NPC: %s", name), nil
 
 	case "e":
@@ -88,11 +84,9 @@ func handleCommand(cmd []string) (string, error) {
 		if err != nil {
 			return "", err
 		}
-
 		if err := logic.BoardState.AddEvent(name, in); err != nil {
 			return "", err
 		}
-
 		return fmt.Sprintf("Added event: %s", name), nil
 
 	case "r":
@@ -100,7 +94,6 @@ func handleCommand(cmd []string) (string, error) {
 		if obj == nil {
 			return "", errors.New("no object selected")
 		}
-
 		if err := logic.BoardState.RemoveObject(obj); err != nil {
 			return "", err
 		}
@@ -129,7 +122,6 @@ func handleCommand(cmd []string) (string, error) {
 			err := errors.New("provide the HP amount")
 			return "", err
 		}
-
 		amount, err := strconv.Atoi(cmd[1])
 		if err != nil {
 			err := errors.New("provide the HP amount")
@@ -140,7 +132,6 @@ func handleCommand(cmd []string) (string, error) {
 		if obj == nil {
 			return "", errors.New("no object selected")
 		}
-
 		npc, ok := obj.(*models.NPC)
 		if !ok {
 			return "", errors.New("only NPCs can take damage")
@@ -153,7 +144,6 @@ func handleCommand(cmd []string) (string, error) {
 			err := errors.New("provide the HP amount")
 			return "", err
 		}
-
 		amount, err := strconv.Atoi(cmd[1])
 		if err != nil {
 			err := errors.New("provide the HP amount")
@@ -164,7 +154,6 @@ func handleCommand(cmd []string) (string, error) {
 		if obj == nil {
 			return "", errors.New("no object selected")
 		}
-
 		npc, ok := obj.(*models.NPC)
 		if !ok {
 			return "", errors.New("only NPCs can heal")

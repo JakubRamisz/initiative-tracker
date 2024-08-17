@@ -7,7 +7,9 @@ func (b *Board) AddEvent(name string, initiative int) error {
 		Name:       name,
 		Initiative: initiative,
 	}
-	b.add(&event)
+	if err := b.add(&event); err != nil {
+		return err
+	}
 
 	return nil
 }

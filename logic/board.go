@@ -13,21 +13,28 @@ type Board struct {
 	round         int
 }
 
-func NewBoard(pcNames []string) Board {
+func NewBoard(pcNames []string) (Board, error) {
 	board := Board{}
 	for _, pc := range pcNames {
-		board.add(
+		err := board.add(
 			&models.Creature{
 				Name: pc,
 			},
 		)
+		if err != nil {
+			return board, err
+		}
 	}
-	return board
+	return board, nil
 }
 
-func (b *Board) add(n models.BoardObject) {
-	b.objects = append(b.objects, n)
+func (b *Board) add(obj models.BoardObject) error {
+	if obj == nil {
+		return errors.New("object is nil")
+	}
+	b.objects = append(b.objects, obj)
 	sort.Sort(models.BoardObjects(b.objects))
+	return nil
 }
 
 func (b *Board) PCs() (pcs []*models.Creature) {
@@ -85,18 +92,6 @@ func (b *Board) GetCurrentObject() models.BoardObject {
 
 func (b *Board) GetObjects() []models.BoardObject {
 	return b.objects
-}
-
-func (b *Board) IndexOf(obj models.BoardObject) int {
-	if obj == nil {
-		return -1
-	}
-	for i, o := range b.objects {
-		if o == obj {
-			return i
-		}
-	}
-	return -1
 }
 
 func (b *Board) GetRound() int {

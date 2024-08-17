@@ -21,7 +21,9 @@ func (b *Board) AddPC(name string) error {
 	pc := models.Creature{
 		Name: name,
 	}
-	b.add(&pc)
+	if err := b.add(&pc); err != nil {
+		return err
+	}
 
 	conf, err := LoadFromFile(ConfigFilePath)
 	if err != nil {
