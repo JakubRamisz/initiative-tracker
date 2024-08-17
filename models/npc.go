@@ -4,8 +4,9 @@ import "fmt"
 
 type NPC struct {
 	Creature
-	CurrentHP int
-	MaxHP     int
+	CurrentHP      int
+	MaxHP          int
+	CreatureNumber int
 }
 
 func (npc *NPC) Heal(value int) {
@@ -27,5 +28,9 @@ func (npc *NPC) RecieveDMG(value int) {
 }
 
 func (npc *NPC) GetInfo() string {
-	return fmt.Sprintf("%2d %-20s [%d/%d]", npc.Initiative, npc.Name, npc.CurrentHP, npc.MaxHP)
+	name := npc.Name
+	if npc.CreatureNumber > 0 {
+		name = fmt.Sprintf("%s (%d)", name, npc.CreatureNumber)
+	}
+	return fmt.Sprintf("%2d %-20s [%d/%d]", npc.Initiative, name, npc.CurrentHP, npc.MaxHP)
 }

@@ -1,7 +1,6 @@
 package logic
 
 import (
-	"fmt"
 	"itr/models"
 )
 
@@ -12,9 +11,6 @@ func (b *Board) AddNPC(name string, hp int) error {
 			exists++
 		}
 	}
-	if exists > 0 {
-		name = fmt.Sprintf("%s (%d)", name, exists)
-	}
 
 	npc := models.NPC{
 		Creature: models.Creature{
@@ -22,6 +18,9 @@ func (b *Board) AddNPC(name string, hp int) error {
 		},
 		MaxHP:     hp,
 		CurrentHP: hp,
+	}
+	if exists > 0 {
+		npc.CreatureNumber = exists
 	}
 	if err := b.add(&npc); err != nil {
 		return err
