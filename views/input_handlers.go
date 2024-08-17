@@ -104,7 +104,7 @@ func handleCommand(cmd []string) (string, error) {
 		if err := logic.BoardState.RemoveObject(obj); err != nil {
 			return "", err
 		}
-		return fmt.Sprintf("Removed : %s", obj.GetName()), nil
+		return fmt.Sprintf("Removed: %s", obj.GetName()), nil
 
 	case "i":
 		if len(cmd) < 2 {

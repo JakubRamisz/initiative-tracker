@@ -14,6 +14,9 @@ func (b *Board) Step() error {
 	if b.currentIndex != nil {
 		currentIdx = *b.currentIndex
 	}
+	if b.round == 0 {
+		b.round = 1
+	}
 	for i, o := range b.objects {
 		i := i
 		o := o
